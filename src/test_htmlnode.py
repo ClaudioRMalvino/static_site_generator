@@ -33,10 +33,11 @@ class TestHTMLNode(unittest.TestCase):
     def test_repr(self):
         node = HTMLNode("div", "Content", [HTMLNode()], {"class": "container"})
         repr_string = repr(node)
-        self.assertIn("tag: div", repr_string)
-        self.assertIn("value: Content", repr_string)
-        self.assertIn("children: [", repr_string)
-        self.assertIn("props: {'class': 'container'}", repr_string)
+
+        self.assertIn(
+            "HTMLNode(tag='div', value='Content', children=[", repr_string)
+        self.assertIn("HTMLNode(", repr_string)  # Check for nested HTMLNode
+        self.assertIn("props={'class': 'container'}", repr_string)
 
 
 if __name__ == '__main__':
