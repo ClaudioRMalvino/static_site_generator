@@ -1,6 +1,6 @@
 import unittest
 
-from html import LeafNode
+from htmlnode import LeafNode
 
 
 class TestLeadNode(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestLeadNode(unittest.TestCase):
         result1 = node1.to_html()
         self.assertIn('<a href="https://www.boot.dev">Click me!</a>', result1)
         result2 = node2.to_html()
-        self.assertIn('<p>This is a paragraph of text</p>', result2)
+        self.assertIn("<p>This is a paragraph of text</p>", result2)
         result3 = node3.to_html()
         self.assertIn("This should return as raw text", result3)
 
