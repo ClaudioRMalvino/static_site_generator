@@ -1,9 +1,0 @@
-{
-    "include": ["src"],
-    "exclude": ["**/node_modules", "**/__pycache__"],
-    "ignore": ["src/generated"],
-    "defineConstant": {"DEBUG": true},
-    "reportMissingImports": true,
-    "reportMissingTypeStubs": false,
-    "pythonPlatform": "Linux",
-}
