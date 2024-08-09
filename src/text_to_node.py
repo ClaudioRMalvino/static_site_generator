@@ -59,31 +59,3 @@ def text_node_to_leaf_node(text_node):
         return LeafNode(value=text_node.text, tag="li")
     else:
         raise Exception(f"Unknown text type: {text_node.text_type}")
-
-def text_node_to_html_node(text_node):
-    """
-    Converts a TextNode object into an HTMLNode.
-
-    Args:
-        text_node (TextNode): The TextNode to convert.
-
-    Returns:
-        HTMLNode: The converted HTMLNode.
-
-    Raises:
-        ValueError: If an unknown text type is encountered.
-    """
-    if text_node.text_type == "text":
-        return HTMLNode(None, text_node.text)
-    elif text_node.text_type == "bold":
-        return ParentNode("b", [HTMLNode(None, text_node.text)])
-    elif text_node.text_type == "italic":
-        return ParentNode("i", [HTMLNode(None, text_node.text)])
-    elif text_node.text_type == "code":
-        return ParentNode("code", [HTMLNode(None, text_node.text)])
-    elif text_node.text_type == "link":
-        return ParentNode("a", [HTMLNode(None, text_node.text)], {"href": text_node.url})
-    elif text_node.text_type == "image":
-        return LeafNode("", "img", {"src": text_node.url, "alt": text_node.text})
-    else:
-        raise ValueError(f"Invalid text type: {text_node.text_type}")

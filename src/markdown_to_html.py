@@ -46,11 +46,9 @@ def markdown_to_html_node(markdown):
         ParentNode: A ParentNode instance representing the HTML structure of the Markdown document.
     """
     blocks = markdown_to_blocks(markdown)
-    print(f"Number of blocks: {len(blocks)}")
     children = []
     for block in blocks:
         block_type = block_to_block_type(block)
-        print(f"Block type: {block_type}")
         child = block_to_html_node(block_type, block)
         if child is not None:
             children.append(child)
@@ -95,9 +93,13 @@ def heading_to_html_node(block):
     Returns:
         ParentNode: A ParentNode instance representing the HTML structure of the Markdown heading.
     """
-    level = block.count("#")
-    text = block[level:].strip()
-    return ParentNode(f"h{level}", [LeafNode(value=text)])
+    match = re.match(r'^(#+)\s*(.+)$', block)
+    if match:
+        level = len(match.group(1))
+        content = match.group(2).strip()
+        children = text_to_children(content)
+        return ParentNode(f"h{level}", children)
+    return None
 
 def code_to_html_node(block):
     """
@@ -113,18 +115,6 @@ def code_to_html_node(block):
     code_text = "\n".join(code_content)
     return ParentNode("pre", [ParentNode("code", [LeafNode(value=code_text)])])
 
-# def quote_to_html_node(block):
-#     """
-#     Converts a Markdown quote block to an HTML node.
-
-#     Args:
-#         block (str): The content of the Markdown quote block.
-
-#     Returns:
-#         ParentNode: A ParentNode instance representing the HTML structure of the Markdown quote.
-#     """
-#     lines = [line.strip()[2:] for line in block.split("\n")]  # Remove "> " from each line
-#     return ParentNode("blockquote", text_to_children(" ".join(lines)))
 def quote_to_html_node(block):
     """
     Converts a Markdown quote block to an HTML node.
@@ -138,20 +128,7 @@ def quote_to_html_node(block):
     lines = [line.strip()[2:] for line in block.split("\n") if line.strip()]  # Remove "> " from each non-empty line
     return ParentNode("blockquote", [LeafNode(value=" ".join(lines))])
 
-# def unordered_list_to_html_node(block):
-#     """
-#     Converts a Markdown unordered list block to an HTML node.
 
-#     Args:
-#         block (str): The content of the Markdown unordered list block.
-
-#     Returns:
-#         ParentNode: A ParentNode instance representing the HTML structure of the Markdown unordered list.
-#     """
-#     list_item_pattern = r"^\s*[-*]\s*(.+)$"
-#     items = [match.group(1) for line in block.split("\n") if (match := re.match(list_item_pattern, line))]
-#     li_nodes = [ParentNode("li", [LeafNode(value=item)]) for item in items]
-#     return ParentNode("ul", li_nodes, None)
 def unordered_list_to_html_node(block):
     """
     Converts a Markdown unordered list block to an HTML node.
