@@ -1,1 +1,4 @@
-python3 /home/claudio/Python_Projects/bootdev/static_site_generator/src/main.py
+
+export PYTHONPATH=$PYTHONPATH:$(pwd)
+python3 src/main.py
+cd public && python3 -m http.server 8888

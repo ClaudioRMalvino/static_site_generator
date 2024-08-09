@@ -1,6 +1,11 @@
-class TextNode():
+class TextNode:
 
-    def __init__(self, text, text_type, url=None):
+    def __init__(
+        self,
+        text,
+        text_type,
+        url=None,
+    ):
         # Text content of the node
         self.text = text
         # Type of text contained in the node
@@ -11,11 +16,13 @@ class TextNode():
     def __eq__(self, target):
         """
         Method returns True if all of the properties of two
-        TextNode objects are equal, false otherwise. 
+        TextNode objects are equal, false otherwise.
         """
-        if (self.text == target.text) and \
-           (self.text_type == target.text_type) and \
-                (self.url == target.url):
+        if (
+            (self.text == target.text)
+            and (self.text_type == target.text_type)
+            and (self.url == target.url)
+        ):
             return True
         else:
             return False

@@ -1,14 +1,13 @@
 import unittest
+from src.htmlnode import LeafNode
 
-from htmlnode import LeafNode
 
-
-class TestLeadNode(unittest.TestCase):
+class TestLeafNode(unittest.TestCase):
     def test_init(self):
         node = LeafNode(value="This is a text.")
         self.assertIsNone(node.tag)
         self.assertTrue(node.value)
-        self.assertIsNone(node.props)
+        self.assertEqual(node.props, None)
 
     def test_init_with_parameters(self):
         node = LeafNode("Click me!", "a", {"href": "https://www.boot.dev"})
